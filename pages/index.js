@@ -87,9 +87,9 @@ export default function Home() {
           <div className="content">
             <div className="header">그룹A</div>
             <div className="meta">종목</div>
-            {subjectA.map((elem)=>{
+            {subjectA.map((elem,index)=>{
               return(
-                <div className="description">{elem}</div>
+                <div className="description" key={index}>{elem}</div>
               )
             })}
           </div>
@@ -99,9 +99,9 @@ export default function Home() {
           <div className="content">
             <div className="header">그룹B</div>
             <div className="meta">종목</div>
-            {subjectB.map((elem)=>{
+            {subjectB.map((elem,index)=>{
               return(
-                <div className="description">{elem}</div>
+                <div className="description" key={index}>{elem}</div>
               )
             })}
           </div>
@@ -110,9 +110,9 @@ export default function Home() {
           <div className="content">
             <div className="header">그룹C</div>
             <div className="meta">종목</div>
-            {subjectC.map((elem)=>{
+            {subjectC.map((elem,index)=>{
               return(
-                <div className="description">{elem}</div>
+                <div className="description" key={index}>{elem}</div>
               )
             })}
 
@@ -122,9 +122,9 @@ export default function Home() {
           <div className="content">
             <div className="header">그룹D</div>
             <div className="meta">종목</div>
-            {subjectD.map((elem)=>{
+            {subjectD.map((elem,index)=>{
               return(
-                <div className="description">{elem}</div>
+                <div className="description"key={index}>{elem}</div>
               )
             })}
           </div>
@@ -133,9 +133,9 @@ export default function Home() {
           <div className="content">
             <div className="header">그룹E</div>
             <div className="meta">종목</div>
-            {subjectE.map((elem)=>{
+            {subjectE.map((elem,index)=>{
               return(
-                <div className="description">{elem}</div>
+                <div className="description" key={index}>{elem}</div>
               )
             })}
           </div>
@@ -154,9 +154,9 @@ export default function Home() {
                   (
                     subjectA.map((elem)=>
                       <>
-                      {news[elem].map((ele)=>{
+                      {news[elem].map((ele,index)=>{
                       return(
-                        <li>
+                        <li key={index}>
                           <h6><a href={ele['url']} target="_blank">{ele['title']}</a></h6>
                           <span>{ele['date']}</span>
                         </li>
@@ -186,9 +186,9 @@ export default function Home() {
                   (
                     subjectB.map((elem)=>
                       <>
-                      {news[elem].map((ele)=>{
+                      {news[elem].map((ele,index)=>{
                       return(
-                        <li>
+                        <li key={index}>
                           <h6><a href={ele['url']} target="_blank">{ele['title']}</a></h6>
                           <span>{ele['date']}</span>
                         </li>
@@ -218,9 +218,9 @@ export default function Home() {
                   (
                     subjectC.map((elem)=>
                       <>
-                      {news[elem].map((ele)=>{
+                      {news[elem].map((ele,index)=>{
                       return(
-                        <li>
+                        <li key={index}>
                           <h6><a href={ele['url']} target="_blank">{ele['title']}</a></h6>
                           <span>{ele['date']}</span>
                         </li>
@@ -250,9 +250,9 @@ export default function Home() {
                   (
                     subjectD.map((elem)=>
                       <>
-                      {news[elem].map((ele)=>{
+                      {news[elem].map((ele,index)=>{
                       return(
-                        <li>
+                        <li key={index}>
                           <h6><a href={ele['url']} target="_blank">{ele['title']}</a></h6>
                           <span>{ele['date']}</span>
                         </li>
@@ -282,9 +282,9 @@ export default function Home() {
                   (
                     subjectE.map((elem)=>
                       <>
-                      {news[elem].map((ele)=>{
+                      {news[elem].map((ele,index)=>{
                       return(
-                        <li>
+                        <li key={index}>
                           <h6><a href={ele['url']} target="_blank">{ele['title']}</a></h6>
                           <span>{ele['date']}</span>
                         </li>
