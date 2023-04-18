@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google';
 import styles from '@/styles/Home.module.css';
 import {addDoc,getDoc,collection, doc, getDocs,query,onSnapshot,orderBy,setDoc} from 'firebase/firestore';
 import { getDatabase, ref, onValue} from "firebase/database";
-import {dbService, database} from './firebase';
+import {dbService, database} from '../src/firebase';
 import { useState,useEffect } from 'react';
 import Link from 'next/link'
 
