@@ -6,6 +6,7 @@ import {addDoc,getDoc,collection, doc, getDocs,query,onSnapshot,orderBy,setDoc} 
 import { getDatabase, ref, onValue} from "firebase/database";
 import {dbService, database} from '../src/firebase';
 import { useState,useEffect } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] });
@@ -67,248 +68,448 @@ export default function Home() {
     
   },[])
 
-  console.log('news:',news['삼성전자'])
-
-
-
-
-  
-  var datetime="2023-04-14 21:00"
 
   return (
     <>
-    <h1 className='header'>실시간 네이버 뉴스</h1>
-    <h3 className='datetime'>크롤링시간 : {
-      (news[subjectA[0]])?(news['timeNow']):("Loading...")
-    }</h3>
-    <div className='container'> 
-      <div className="ui cards">
-        <div className="card">
-          <div className="content">
-            <div className="header">그룹A</div>
-            <div className="meta">종목</div>
-            {subjectA.map((elem,index)=>{
-              return(
-                <div className="description" key={index}>{elem}</div>
-              )
-            })}
-          </div>
-        </div>
-        
-        <div className="card">
-          <div className="content">
-            <div className="header">그룹B</div>
-            <div className="meta">종목</div>
-            {subjectB.map((elem,index)=>{
-              return(
-                <div className="description" key={index}>{elem}</div>
-              )
-            })}
-          </div>
-        </div>
-        <div className="card">
-          <div className="content">
-            <div className="header">그룹C</div>
-            <div className="meta">종목</div>
-            {subjectC.map((elem,index)=>{
-              return(
-                <div className="description" key={index}>{elem}</div>
-              )
-            })}
-
-          </div>
-        </div>
-        <div className="card">
-          <div className="content">
-            <div className="header">그룹D</div>
-            <div className="meta">종목</div>
-            {subjectD.map((elem,index)=>{
-              return(
-                <div className="description"key={index}>{elem}</div>
-              )
-            })}
-          </div>
-        </div>
-        <div className="card">
-          <div className="content">
-            <div className="header">그룹E</div>
-            <div className="meta">종목</div>
-            {subjectE.map((elem,index)=>{
-              return(
-                <div className="description" key={index}>{elem}</div>
-              )
-            })}
-          </div>
-        </div>
-        
-      </div>            
+    <div className="container-fluid my-3">
+      <h1>실시간 네이버 뉴스</h1>
+      <h2>크롤링시간 : {(news[subjectA[0]])?(news['timeNow']):("Loading...")}</h2>
     </div>
-    <div className='container'> 
-      <div className="ui cards">
+
+    <div className="row row-cols-1 row-cols-md-5 g-4 mx-2 mt-2">
+      <div className="col">
         <div className="card">
-          <div className="content">
-            <div className="description">
-              <ul>              
-                {
-                  (news[subjectA[0]])?
-                  (
-                    subjectA.map((elem)=>
-                      <>
-                      {news[elem].map((ele,index)=>{
-                      return(
-                        <li key={index}>
-                          <h6><a href={ele['url']} target="_blank">{ele['title']}</a></h6>
-                          <span>{ele['date']}</span>
-                        </li>
-                      )}
-                      )}
-                      </>
-                    )
-                  ):(
-                    <div class="ui segment">
-                      <div class="ui active inverted dimmer">
-                        <div class="ui text loader">Loading</div>
-                      </div>
-                      <p></p>
-                    </div>
-                  )
+          <div className="card-body d-block">
+            <h5 className="card-title py-1">Section A</h5>
+              {subjectA.map((elem,index)=>{
+                return(
+                  <p className="card-text" key={index}>{elem}</p>
+                )
+              })}
+          </div>
+          <div className="card-footer">       
+          {
+            (news[subjectA[0]])?
+            (
+              subjectA.map((elem)=>
+                <>
+                {news[elem].map((ele,index)=>{
+                return(
+                  <>
+                  <li key={index}>
+                    <h5>{elem}</h5>
+                    <h6><a href={ele['url']} target="_blank" className='title'>{ele['title']}</a></h6>
+                    <span>{ele['date']}</span>
+                  </li>
+                  <hr></hr>
+                  </>
+                )
                 }
-              </ul>
+                )}
+                                  
+                </>
+              )
+            ):(
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
             </div>
+            )
+          }
           </div>
         </div>
+      </div>
+      <div className="col">
         <div className="card">
-          <div className="content">
-            <div className="description">
-              <ul>
-              {
+          <div className="card-body">
+            <h5 className="card-title py-1">Section B</h5>
+            {subjectB.map((elem,index)=>{
+                return(
+                  <p className="card-text" key={index}>{elem}</p>
+                )
+              })}         
+          </div>
+          <div className="card-footer d-block">
+          {
                   (news[subjectB[0]])?
                   (
                     subjectB.map((elem)=>
                       <>
                       {news[elem].map((ele,index)=>{
                       return(
+                        <>
                         <li key={index}>
-                          <h6><a href={ele['url']} target="_blank">{ele['title']}</a></h6>
+                          <h5>{elem}</h5>
+                          <h6><a className='title' href={ele['url']} target="_blank">{ele['title']}</a></h6>
                           <span>{ele['date']}</span>
                         </li>
+                        <hr></hr>
+                        </>
                       )}
                       )}
                       </>
                     )
                   ):(
-                    <div class="ui segment">
-                      <div class="ui active inverted dimmer">
-                        <div class="ui text loader">Loading</div>
-                      </div>
-                      <p></p>
-                    </div>
+                  <div className="spinner-border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
                   )
                 }
-              </ul>
-            </div>
           </div>
         </div>
+      </div>
+      <div className="col">
         <div className="card">
-          <div className="content">
-            <div className="description">
-              <ul>
-              {
-                  (news[subjectC[0]])?
-                  (
-                    subjectC.map((elem)=>
-                      <>
-                      {news[elem].map((ele,index)=>{
-                      return(
-                        <li key={index}>
-                          <h6><a href={ele['url']} target="_blank">{ele['title']}</a></h6>
-                          <span>{ele['date']}</span>
-                        </li>
-                      )}
-                      )}
-                      </>
-                    )
-                  ):(
-                    <div class="ui segment">
-                      <div class="ui active inverted dimmer">
-                        <div class="ui text loader">Loading</div>
-                      </div>
-                      <p></p>
-                    </div>
-                  )
-                }
-              </ul>
+          <div className="card-body">
+            <h5 className="card-title py-1">Section C</h5>
+            {subjectC.map((elem,index)=>{
+                return(
+                  <p className="card-text" key={index}>{elem}</p>
+                )
+              })}  
+          </div>
+          <div className="card-footer">
+                      {
+            (news[subjectC[0]])?
+            (
+              subjectC.map((elem)=>
+                <>
+                {news[elem].map((ele,index)=>{
+                return(
+                  <>
+                  <li key={index}>
+                    <h5>{elem}</h5>
+                    <h6><a className='title' href={ele['url']} target="_blank">{ele['title']}</a></h6>
+                    <span>{ele['date']}</span>
+                  </li>
+                  <hr></hr>
+                  </>
+                )}
+                )}
+                </>
+              )
+            ):(
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
             </div>
+            )
+          }
           </div>
         </div>
+      </div>
+      <div className="col">
         <div className="card">
-          <div className="content">
-            <div className="description">
-              <ul>
-              {
-                  (news[subjectD[0]])?
-                  (
-                    subjectD.map((elem)=>
-                      <>
-                      {news[elem].map((ele,index)=>{
-                      return(
-                        <li key={index}>
-                          <h6><a href={ele['url']} target="_blank">{ele['title']}</a></h6>
-                          <span>{ele['date']}</span>
-                        </li>
-                      )}
-                      )}
-                      </>
-                    )
-                  ):(
-                    <div class="ui segment">
-                      <div class="ui active inverted dimmer">
-                        <div class="ui text loader">Loading</div>
-                      </div>
-                      <p></p>
-                    </div>
-                  )
-                }
-              </ul>
+          <div className="card-body">
+            <h5 className="card-title py-1">Section D</h5>
+            {subjectD.map((elem,index)=>{
+                return(
+                  <p className="card-text" key={index}>{elem}</p>
+                )
+              })}  
+          </div>
+          <div className="card-footer">
+          {
+            (news[subjectD[0]])?
+            (
+              subjectD.map((elem)=>
+                <>
+                {news[elem].map((ele,index)=>{
+                return(
+                  <>
+                  <li key={index}>
+                    <h5>{elem}</h5>
+                    <h6><a className='title' href={ele['url']} target="_blank">{ele['title']}</a></h6>
+                    <span>{ele['date']}</span>
+                  </li>
+                  <hr></hr>
+                  </>
+                )}
+                )}
+                </>
+              )
+            ):(
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
             </div>
+            )
+          }
           </div>
         </div>
+      </div>
+      <div className="col">
         <div className="card">
-          <div className="content">
-            <div className="description">
-              <ul>
-              {
-                  (news[subjectE[0]])?
-                  (
-                    subjectE.map((elem)=>
-                      <>
-                      {news[elem].map((ele,index)=>{
-                      return(
-                        <li key={index}>
-                          <h6><a href={ele['url']} target="_blank">{ele['title']}</a></h6>
-                          <span>{ele['date']}</span>
-                        </li>
-                      )}
-                      )}
-                      </>
-                    )
-                  ):(
-                    <div class="ui segment">
-                      <div class="ui active inverted dimmer">
-                        <div class="ui text loader">Loading</div>
-                      </div>
-                      <p></p>
-                    </div>
-                  )
-                }
-              </ul>
+          <div className="card-body">
+            <h5 className="card-title py-1">Section E</h5>
+            {subjectE.map((elem,index)=>{
+                return(
+                  <p className="card-text" key={index}>{elem}</p>
+                )
+              })}  
+          </div>
+          <div className="card-footer">
+          {
+            (news[subjectE[0]])?
+            (
+              subjectE.map((elem)=>
+                <>
+                {news[elem].map((ele,index)=>{
+                return(
+                  <>
+                  <li key={index}>
+                    <h5>{elem}</h5>
+                    <h6><a className='title' href={ele['url']} target="_blank">{ele['title']}</a></h6>
+                    <span>{ele['date']}</span>
+                  </li>
+                  <hr></hr>
+                  </>
+                )}
+                )}
+                </>
+              )
+            ):(
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
             </div>
+            )
+          }
           </div>
         </div>
-        
-      </div>            
-    </div>
+      </div>
+      
+                
+    </div>    
     </>
+    // <>
+    // <h1 className='header'>실시간 네이버 뉴스</h1>
+    // <h3 className='datetime'>크롤링시간 : {
+    //   (news[subjectA[0]])?(news['timeNow']):("Loading...")
+    // }</h3>
+    // <div className='container'> 
+    //   <div className="ui cards">
+    //     <div className="card">
+    //       <div className="content">
+    //         <div className="header">그룹A</div>
+    //         <div className="meta">종목</div>
+    //         {subjectA.map((elem,index)=>{
+    //           return(
+    //             <div className="description" key={index}>{elem}</div>
+    //           )
+    //         })}
+    //       </div>
+    //     </div>
+        
+    //     <div className="card">
+    //       <div className="content">
+    //         <div className="header">그룹B</div>
+    //         <div className="meta">종목</div>
+    //         {subjectB.map((elem,index)=>{
+    //           return(
+    //             <div className="description" key={index}>{elem}</div>
+    //           )
+    //         })}
+    //       </div>
+    //     </div>
+    //     <div className="card">
+    //       <div className="content">
+    //         <div className="header">그룹C</div>
+    //         <div className="meta">종목</div>
+    //         {subjectC.map((elem,index)=>{
+    //           return(
+    //             <div className="description" key={index}>{elem}</div>
+    //           )
+    //         })}
+
+    //       </div>
+    //     </div>
+    //     <div className="card">
+    //       <div className="content">
+    //         <div className="header">그룹D</div>
+    //         <div className="meta">종목</div>
+    //         {subjectD.map((elem,index)=>{
+    //           return(
+    //             <div className="description"key={index}>{elem}</div>
+    //           )
+    //         })}
+    //       </div>
+    //     </div>
+    //     <div className="card">
+    //       <div className="content">
+    //         <div className="header">그룹E</div>
+    //         <div className="meta">종목</div>
+    //         {subjectE.map((elem,index)=>{
+    //           return(
+    //             <div className="description" key={index}>{elem}</div>
+    //           )
+    //         })}
+    //       </div>
+    //     </div>
+        
+    //   </div>            
+    // </div>
+    // <div className='container'> 
+    //   <div className="ui cards">
+    //     <div className="card">
+    //       <div className="content">
+    //         <div className="description">
+    //           <ul>              
+    //             {
+    //               (news[subjectA[0]])?
+    //               (
+    //                 subjectA.map((elem)=>
+    //                   <>
+    //                   {news[elem].map((ele,index)=>{
+    //                   return(
+    //                     <li key={index}>
+    //                       <h5><a href={ele['url']} target="_blank">{ele['title']}</a></h5>
+    //                       <span>{ele['date']}</span>
+    //                     </li>
+    //                   )}
+    //                   )}
+    //                   </>
+    //                 )
+    //               ):(
+    //                 <div className="ui segment">
+    //                   <div className="ui active inverted dimmer">
+    //                     <div className="ui text loader">Loading</div>
+    //                   </div>
+    //                   <p></p>
+    //                 </div>
+    //               )
+    //             }
+    //           </ul>
+    //         </div>
+    //       </div>
+    //     </div>
+    //     <div className="card">
+    //       <div className="content">
+    //         <div className="description">
+    //           <ul>
+    //           {
+    //               (news[subjectB[0]])?
+    //               (
+    //                 subjectB.map((elem)=>
+    //                   <>
+    //                   {news[elem].map((ele,index)=>{
+    //                   return(
+    //                     <li key={index}>
+    //                       <h5><a href={ele['url']} target="_blank">{ele['title']}</a></h5>
+    //                       <span>{ele['date']}</span>
+    //                     </li>
+    //                   )}
+    //                   )}
+    //                   </>
+    //                 )
+    //               ):(
+    //                 <div className="ui segment">
+    //                   <div className="ui active inverted dimmer">
+    //                     <div className="ui text loader">Loading</div>
+    //                   </div>
+    //                   <p></p>
+    //                 </div>
+    //               )
+    //             }
+    //           </ul>
+    //         </div>
+    //       </div>
+    //     </div>
+    //     <div className="card">
+    //       <div className="content">
+    //         <div className="description">
+    //           <ul>
+    //           {
+    //               (news[subjectC[0]])?
+    //               (
+    //                 subjectC.map((elem)=>
+    //                   <>
+    //                   {news[elem].map((ele,index)=>{
+    //                   return(
+    //                     <li key={index}>
+    //                       <h5><a href={ele['url']} target="_blank">{ele['title']}</a></h5>
+    //                       <span>{ele['date']}</span>
+    //                     </li>
+    //                   )}
+    //                   )}
+    //                   </>
+    //                 )
+    //               ):(
+    //                 <div className="ui segment">
+    //                   <div className="ui active inverted dimmer">
+    //                     <div className="ui text loader">Loading</div>
+    //                   </div>
+    //                   <p></p>
+    //                 </div>
+    //               )
+    //             }
+    //           </ul>
+    //         </div>
+    //       </div>
+    //     </div>
+    //     <div className="card">
+    //       <div className="content">
+    //         <div className="description">
+    //           <ul>
+    //           {
+    //               (news[subjectD[0]])?
+    //               (
+    //                 subjectD.map((elem)=>
+    //                   <>
+    //                   {news[elem].map((ele,index)=>{
+    //                   return(
+    //                     <li key={index}>
+    //                       <h5><a href={ele['url']} target="_blank">{ele['title']}</a></h5>
+    //                       <span>{ele['date']}</span>
+    //                     </li>
+    //                   )}
+    //                   )}
+    //                   </>
+    //                 )
+    //               ):(
+    //                 <div className="ui segment">
+    //                   <div className="ui active inverted dimmer">
+    //                     <div className="ui text loader">Loading</div>
+    //                   </div>
+    //                   <p></p>
+    //                 </div>
+    //               )
+    //             }
+    //           </ul>
+    //         </div>
+    //       </div>
+    //     </div>
+    //     <div className="card">
+    //       <div className="content">
+    //         <div className="description">
+    //           <ul>
+    //           {
+    //               (news[subjectE[0]])?
+    //               (
+    //                 subjectE.map((elem)=>
+    //                   <>
+    //                   {news[elem].map((ele,index)=>{
+    //                   return(
+    //                     <li key={index}>
+    //                       <h5><a href={ele['url']} target="_blank">{ele['title']}</a></h5>
+    //                       <span>{ele['date']}</span>
+    //                     </li>
+    //                   )}
+    //                   )}
+    //                   </>
+    //                 )
+    //               ):(
+    //                 <div className="ui segment">
+    //                   <div className="ui active inverted dimmer">
+    //                     <div className="ui text loader">Loading</div>
+    //                   </div>
+    //                   <p></p>
+    //                 </div>
+    //               )
+    //             }
+    //           </ul>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>            
+    // </div>
+    // </>
   )
 }
 
