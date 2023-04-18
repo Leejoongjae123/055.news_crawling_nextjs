@@ -64,8 +64,7 @@ export default function Home() {
 
   useEffect(()=>{
     getProducts();
-    getNews();
-    
+    getNews();    
   },[])
 
 
