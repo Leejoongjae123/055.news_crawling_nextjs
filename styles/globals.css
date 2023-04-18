@@ -105,7 +105,8 @@ body {
 }
 
 .container {
-  padding:10px 20px 10px 20px;
+  width:100%;
+  padding:10px;
   display: grid;
   gap: 10px; /* 열과 행 사이의 간격을 10px로 설정 (선택적) */
   place-items: center;
@@ -122,4 +123,16 @@ body {
 }
 ul{
   list-style: none;
+}
+
+.ui cards{
+  display:flex;
+}
+span{
+  font-size: 5px;
+}
+h6{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }

@@ -3,10 +3,10 @@ import Image from 'next/image';
 import { Inter } from 'next/font/google';
 import styles from '@/styles/Home.module.css';
 import {addDoc,getDoc,collection, doc, getDocs,query,onSnapshot,orderBy,setDoc} from 'firebase/firestore';
-import {ref,set,child,get} from 'firebase/database'
+import { getDatabase, ref, onValue} from "firebase/database";
 import {dbService, database} from './firebase';
-import { getDatabase } from 'firebase/database';
 import { useState,useEffect } from 'react';
+import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -50,31 +50,44 @@ export default function Home() {
     setIsComplete(true)
   }
 
-  const getNews=async ()=>{  
-    const dbRef = ref(database)
-    get(child(dbRef,'/')).then(snapshot=>{
-      if (snapshot.exists()&&isLoading==false){
-        // console.log(snapshot.val())
-        setNews(snapshot.val())
-        setIsLoading(true)
-      }else{
-        console.log("No data Available")
-      }
-    }).catch(error=>{
-      console.log(error)
-    }
-
-    )
-
+  // const getNews=async ()=>{  
+  //   const dbRef = ref(database)
+  //   get(child(dbRef,'/')).then(snapshot=>{
+  //     if (snapshot.exists()&&isLoading==false){
+  //       // console.log(snapshot.val())
+  //       setNews(snapshot.val())
+  //       setIsLoading(true)
+  //     }else{
+  //       console.log("No data Available")
+  //     }
+  //   }).catch(error=>{
+  //     console.log(error)
+  //   }
+  //   )
     
+  // }
+    const getNews=async ()=>{  
+      const db = getDatabase();
+      const starCountRef = await ref(database);
+      if (isLoading==false){
+        onValue(starCountRef, (snapshot) => {
+          const data = snapshot.val();
+          setNews(data);
+        });
+        
+      } else{
+        console.log("이미 로딩 완료")
+      }
+      setIsLoading(true);
   }
 
   useEffect(()=>{
     getProducts();
     getNews();
-    console.log('news:',news)
-  })
+    
+  },[])
 
+  console.log('news:',news['삼성전자'])
 
 
 
@@ -85,7 +98,9 @@ export default function Home() {
   return (
     <>
     <h1 className='header'>실시간 네이버 뉴스</h1>
-    <h3 className='datetime'>크롤링시간 : {datetime}</h3>
+    <h3 className='datetime'>크롤링시간 : {
+      (news[subjectA[0]])?(news['timeNow']):("Loading...")
+    }</h3>
     <div className='container'> 
       <div className="ui cards">
         <div className="card">
@@ -153,25 +168,32 @@ export default function Home() {
         <div className="card">
           <div className="content">
             <div className="description">
-              <ul>
-                
-                
-                  <li>
-                    
-                  </li>
-                  <li>
-                    Hello
-                  </li>
-                  <li>
-                    Hello
-                  </li>
-                  <li>
-                    Hello
-                  </li>
-                  <li>
-                    Hello
-                  </li>
-                </ul>
+              <ul>              
+                {
+                  (news[subjectA[0]])?
+                  (
+                    subjectA.map((elem)=>
+                      <>
+                      {news[elem].map((ele)=>{
+                      return(
+                        <li>
+                          <h6><a href={ele['url']} target="_blank">{ele['title']}</a></h6>
+                          <span>{ele['date']}</span>
+                        </li>
+                      )}
+                      )}
+                      </>
+                    )
+                  ):(
+                    <div class="ui segment">
+                      <div class="ui active inverted dimmer">
+                        <div class="ui text loader">Loading</div>
+                      </div>
+                      <p></p>
+                    </div>
+                  )
+                }
+              </ul>
             </div>
           </div>
         </div>
@@ -179,22 +201,31 @@ export default function Home() {
           <div className="content">
             <div className="description">
               <ul>
-                  <li>
-                    Hello
-                  </li>
-                  <li>
-                    Hello
-                  </li>
-                  <li>
-                    Hello
-                  </li>
-                  <li>
-                    Hello
-                  </li>
-                  <li>
-                    Hello
-                  </li>
-                </ul>
+              {
+                  (news[subjectB[0]])?
+                  (
+                    subjectB.map((elem)=>
+                      <>
+                      {news[elem].map((ele)=>{
+                      return(
+                        <li>
+                          <h6><a href={ele['url']} target="_blank">{ele['title']}</a></h6>
+                          <span>{ele['date']}</span>
+                        </li>
+                      )}
+                      )}
+                      </>
+                    )
+                  ):(
+                    <div class="ui segment">
+                      <div class="ui active inverted dimmer">
+                        <div class="ui text loader">Loading</div>
+                      </div>
+                      <p></p>
+                    </div>
+                  )
+                }
+              </ul>
             </div>
           </div>
         </div>
@@ -202,22 +233,31 @@ export default function Home() {
           <div className="content">
             <div className="description">
               <ul>
-                  <li>
-                    Hello
-                  </li>
-                  <li>
-                    Hello
-                  </li>
-                  <li>
-                    Hello
-                  </li>
-                  <li>
-                    Hello
-                  </li>
-                  <li>
-                    Hello
-                  </li>
-                </ul>
+              {
+                  (news[subjectC[0]])?
+                  (
+                    subjectC.map((elem)=>
+                      <>
+                      {news[elem].map((ele)=>{
+                      return(
+                        <li>
+                          <h6><a href={ele['url']} target="_blank">{ele['title']}</a></h6>
+                          <span>{ele['date']}</span>
+                        </li>
+                      )}
+                      )}
+                      </>
+                    )
+                  ):(
+                    <div class="ui segment">
+                      <div class="ui active inverted dimmer">
+                        <div class="ui text loader">Loading</div>
+                      </div>
+                      <p></p>
+                    </div>
+                  )
+                }
+              </ul>
             </div>
           </div>
         </div>
@@ -225,22 +265,31 @@ export default function Home() {
           <div className="content">
             <div className="description">
               <ul>
-                  <li>
-                    Hello
-                  </li>
-                  <li>
-                    Hello
-                  </li>
-                  <li>
-                    Hello
-                  </li>
-                  <li>
-                    Hello
-                  </li>
-                  <li>
-                    Hello
-                  </li>
-                </ul>
+              {
+                  (news[subjectD[0]])?
+                  (
+                    subjectD.map((elem)=>
+                      <>
+                      {news[elem].map((ele)=>{
+                      return(
+                        <li>
+                          <h6><a href={ele['url']} target="_blank">{ele['title']}</a></h6>
+                          <span>{ele['date']}</span>
+                        </li>
+                      )}
+                      )}
+                      </>
+                    )
+                  ):(
+                    <div class="ui segment">
+                      <div class="ui active inverted dimmer">
+                        <div class="ui text loader">Loading</div>
+                      </div>
+                      <p></p>
+                    </div>
+                  )
+                }
+              </ul>
             </div>
           </div>
         </div>
@@ -248,21 +297,30 @@ export default function Home() {
           <div className="content">
             <div className="description">
               <ul>
-                <li>
-                  Hello
-                </li>
-                <li>
-                  Hello
-                </li>
-                <li>
-                  Hello
-                </li>
-                <li>
-                  Hello
-                </li>
-                <li>
-                  Hello
-                </li>
+              {
+                  (news[subjectE[0]])?
+                  (
+                    subjectE.map((elem)=>
+                      <>
+                      {news[elem].map((ele)=>{
+                      return(
+                        <li>
+                          <h6><a href={ele['url']} target="_blank">{ele['title']}</a></h6>
+                          <span>{ele['date']}</span>
+                        </li>
+                      )}
+                      )}
+                      </>
+                    )
+                  ):(
+                    <div class="ui segment">
+                      <div class="ui active inverted dimmer">
+                        <div class="ui text loader">Loading</div>
+                      </div>
+                      <p></p>
+                    </div>
+                  )
+                }
               </ul>
             </div>
           </div>
