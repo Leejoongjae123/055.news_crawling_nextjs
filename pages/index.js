@@ -35,37 +35,17 @@ export default function Home() {
       querySnapshot.forEach((doc)=>{
         const newOne=doc.data()['data']
         if (isComplete===false){
-          // setProducts(newOne)
-          // setSubjectA((prev)=>[...prev].concat(newOne[0]))
           setSubjectA(newOne[0]['name'])
           setSubjectB(newOne[1]['name'])
           setSubjectC(newOne[2]['name'])
           setSubjectD(newOne[3]['name'])
           setSubjectE(newOne[4]['name'])
         }
-        // if (isComplete===false){
-        //   setProducts((prev)=>[...prev].concat(newOne))
-        // }
+
       })
     setIsComplete(true)
   }
 
-  // const getNews=async ()=>{  
-  //   const dbRef = ref(database)
-  //   get(child(dbRef,'/')).then(snapshot=>{
-  //     if (snapshot.exists()&&isLoading==false){
-  //       // console.log(snapshot.val())
-  //       setNews(snapshot.val())
-  //       setIsLoading(true)
-  //     }else{
-  //       console.log("No data Available")
-  //     }
-  //   }).catch(error=>{
-  //     console.log(error)
-  //   }
-  //   )
-    
-  // }
     const getNews=async ()=>{  
       const db = getDatabase();
       const starCountRef = await ref(database);
