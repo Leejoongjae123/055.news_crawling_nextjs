@@ -19,4 +19,22 @@ body {
 
 }
 
-.title {display:-webkit-box; word-wrap:break-word; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden; text-overflow:ellipsis;}
+.title {display:-webkit-box; word-wrap:break-word; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden; text-overflow:ellipsis}
+
+a:visited {
+  color : red;
+}
+.span{
+  font-size: 1rem;
+}
+.contents{
+  width:70%;
+}
+.company{
+  display:-webkit-box; word-wrap:break-word; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden; text-overflow:ellipsis;
+  width:15%;
+}
+.time{
+  display:-webkit-box; word-wrap:break-word; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden; text-overflow:ellipsis;
+  width:15%;
+}
